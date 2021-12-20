@@ -1,7 +1,9 @@
 FROM buildpack-deps:buster-curl
-
+    
 RUN groupadd -r influxdb --gid=1000 && \
     useradd -r -g influxdb --uid=1000 --home-dir=/home/influxdb --shell=/bin/bash influxdb && \
+    chgrp -R 0 /var/lib && \
+    chmod -R g=u /var/lib && \
     mkdir -p /home/influxdb && \
     chown -R influxdb:influxdb /home/influxdb
 
